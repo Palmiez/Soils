@@ -1,0 +1,1560 @@
+﻿<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="x-ua-compatible" content="IE=11">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1, user-scalable=no">
+    <title>Scotland's Soils - soil maps</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/3.17/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link href="css/font/foundation-icons.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--<link href="style/bootstrap.min.css" rel="stylesheet" type="text/css">-->
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/PageLayout2.css">
+    <link rel="stylesheet" href="css/jelly.css" />
+
+    <!-- Attach our CSS -->
+    <link rel="stylesheet" href="css/reveal.css">
+    <!---jquery-->
+   
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--<script src="jquery.min.js"></script>-->
+    <!-- Attach necessary scripts -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.6.min.js"></script>
+    <script type="text/javascript" src="js/jquery.reveal.js"></script>
+
+</head>
+<body>
+
+
+
+    <div id="header" class="large-12 columns column_sepa" style="z-index: 50;">
+        <div id="logoRow" class="row" style="background-color: none; margin-left: auto; margin-right; max-width: initial; padding-top: 0.4em;">
+
+            <div class="small-2 columns"><img src="img/logo.png"></div>
+            <div class="small-10 columns"><img src="img/part-of-scotlands-environment-web.png"></div>
+
+        </div>
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li style="color: #ffffff; font-size:1.3em; font-weight:bold"><a href="#" id="openSidepanel" data-toggle="toc_sepa"><i class="fi-arrow-right" style="color:#a09abc; font-size: 1.5em;"></i></a></li>
+
+                    <li><a href="http://soils.environment.gov.scot/" style="color: #ffffff; font-family: 'Open Sans', sans-serif; text-decoration: none; font-weight: 600; font-size: 16px;">Home</a></li>
+
+                    <li><a href="http://soils.environment.gov.scot/maps/" style="color: #ffffff; font-family: 'Open Sans', sans-serif; text-decoration: none; font-weight: 600; font-size: 16px;">Maps</a></li>
+                    <li><a href="http://soils.environment.gov.scot/resources/" style="color: #ffffff; font-family: 'Open Sans', sans-serif; text-decoration: none; font-weight: 600; font-size: 16px;">Resources</a></li>
+                    <li><a href="http://soils.environment.gov.scot/soils-in-scotland/" style="color: #ffffff; font-family: 'Open Sans', sans-serif; text-decoration: none; font-weight: 600; font-size: 16px;">Soils in Scotland</a></li>
+                    <li><a href="http://soils.environment.gov.scot/about-us/" style="color: #ffffff; font-family: 'Open Sans', sans-serif; text-decoration: none; font-weight: 600; font-size: 16px;">About Us</a></li>
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu">
+                    <li><input type="search" id="txtsearch" placeholder="Placename, postcode or NGR"></li>
+                    <li><button type="button" class="button" id="btnSearch" data-toggle="search_results_sepa"><i class="fa fa-search"></i></button></li>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+    <div id="wrapper_body">
+        <div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="small">
+            <button class="menu-icon" type="button" data-toggle></button>
+            <div class="title-bar-title">Menu</div>
+        </div>
+
+        <div class="row">
+
+            <ul class="dropdown menu" data-dropdown-menu>
+
+                <li class="has-submenu">
+
+                    <ul class="submenu menu vertical" data-submenu>
+                        <li><a href="#">Standard map</a></li>
+
+                        <li title="Aerial Background" style="background-repeat:no-repeat" class="bg_Selector" id="bg_Selector"><a href="#">Aerial</a></li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
+
+
+        </div>
+
+
+
+        <div class="columns  small-12 medium-8 large-4 columns column_sepa sepa_body" id="search_results_sepa" data-toggler data-animate="slide-in-left" data-closable="slide-out-left" style="background-color:#ffffff;">
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true"><i class="fi-arrow-left"></i></span>
+            </button>
+
+            <div class="row ">
+                <div class="columns">
+                    <h3 id="top_search" style="padding-top:10px; color:#27233e">Search results</h3>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="columns query_results" id="query_results">
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="off-canvas-wrap" data-off-canvas>
+            <div class="columns  small-10 medium-8 large-4 columns column_sepa" id="about_sepa" aria-expanded="true" data-toggler data-animate="slide-in-left" data-closable="slide-out-left" style="background-color:#ffffff;">
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                    <span aria-hidden="true"><i class="fi-arrow-left"></i></span>
+                </button>
+                <div class="row">
+
+                    <div class="columns">
+                        <h3 style="padding-top:20px; color:#27233e">Help</h3>
+                    </div>
+                </div>
+                <div class="column row">
+
+
+                    <div class="tabs-content" data-tabs-content="example-tabs" style="border: #ffffff;">
+                        <div class="tabs-panel is-active" id="panel5" style="padding-left:0.1rem; padding-bottom: 6.0rem;">
+                            <div class="media-object-section">
+
+                                <div class="columns" style="padding-left:0.1rem; padding-right:0.1rem;">
+                                    <h6 style="color: #27233e;">Viewing map layers and getting more information</h6>
+                                    <div class="row">
+                                        <div class="small-12 columns">
+                                            <span style="color: #8277ba;">View map layers</span><br />Click on the 'Contents' menu to the left of the screen to open the table of contents.
+                                            To switch on a map layer select the 'radio' button to the right of the table of contents. Only one map layer can be viewed at a time. Click the Legend tab in the contents view to access the map layer legend info.
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 columns">
+                                            <br /> <span style="color: #8277ba;">Map transparency</span> <br /> Change the transparency of individual map layers using the transparency tool - located on the right side of the screen.
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="small-12 columns">
+                                            <br /> <span style="color: #8277ba;">dentify features</span> <br />Currently only a limited number of map layers can be identified to return extra information. These include
+
+                                            Click directly on the map layer to show each layer's attribute data.
+                                        </div>
+                                    </div>
+                                    <br /><h6 style="color: #8277ba;">Search</h6>
+                                    <div class="row">
+                                        <div class="small-12 columns">
+                                            Search using postcode, place or National Grid reference. Results of searches for placenames and postcodes are displayed in the Search results info box - just select from the list of options that best match your search criteria.
+                                        </div>
+                                    </div>
+                                    <br /><h6 style="color: #8277ba;">Basemaps</h6>
+                                    <div class="row">
+                                        <div class="small-12 columns">
+                                            Users can view the map using 2 basemap options - a Standard map provided by Ordnance Survey and aerial basemap available at a limited scale  from 1:50000.
+                                        </div>
+                                    </div>
+                                    <br /><h6 style="#27233e;">Send your queries and feedback</h6>
+                                    <div class="row">
+                                        <div class="small-12 columns">
+
+                                            If you have further queries or want to provide feedback about the Scotland's Soils map application please use the submit option below:
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="small-12 columns">
+                                            <a href="mailto:SEWEB.administrator@sepa.org.uk" class="button">Submit review</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!------------------------------------------------------------------------------>
+        <!----------------------------Map field search tab------------------------------>
+        <div class="left-submenu">
+
+            <div class="columns  small-12 medium-8 large-4 columns column_sepa" id="help_sepa"
+                 data-toggler data-animate="slide-in-left" data-closable="slide-out-left" data-animation="fade" style="background-color:#ffffff;">
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                    <span aria-hidden="true"><i class="fi-arrow-left"></i></span>
+                </button>
+
+                <div class="row">
+                    <div class="columns">
+                        <h3 style="padding-top:30px; color:#093e79">Overview</h3>
+                    </div>
+
+                </div>
+
+                <div class="column row">
+
+                    <ul class="tabs" data-tabs id="example-tabs">
+                        <li class="tabs-title is-active">
+                            <a href="#panel1" aria-selected="true" style="font-size: 0.8em; color: #093e79;">Map unit information</a>
+                        </li>
+                        <li class="tabs-title">
+                            <a href="#panel2" aria-selected="true" style="font-size: 0.8em; color: #093e79;">Landscape</a>
+                        </li>
+
+                    </ul>
+                    <div class="tabs-content" data-tabs-content="example-tabs">
+                        <div class="tabs-panel is-active" id="panel1">
+
+                            <div class="media-object stack-for-small">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td style="color: #093e79; font-style: normal;" id="leftPane" data-dojo-type="dijit/layout/ContentPane"
+                                                data-dojo-props="region:'center'"></td>
+
+
+                                            <td style="color: #093e79; font-style: normal;" id="leftPaneError" data-dojo-type="dijit/layout/ContentPane"
+                                                data-dojo-props="region:'center'">
+
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div id="pager" style="display:none;">
+                                    <a href='javascript:void(0);' id="previous" class='button' style="background-color: #fff; text-decoration: none;">
+                                        <!--Prev-->
+                                    </a>
+                                    &nbsp;
+                                    <a href='javascript:void(0);' id="next" class='button' style="background-color: #fff; text-decoration: none;">
+                                        Next
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tabs-panel" id="panel2">
+                            <div class="media-object stack-for-small">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td style="color: #093e79; font-style: normal;" id="leftPane2" data-dojo-type="dijit/layout/ContentPane"
+                                                data-dojo-props="region:'center'"></td>
+
+
+                                            <td style="color: #093e79; font-style: normal;" id="leftPaneError" data-dojo-type="dijit/layout/ContentPane"
+                                                data-dojo-props="region:'center'">
+
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div id="pager" style="display:none;">
+                                    <a href='javascript:void(0);' id="previous" class='button' style="background-color: #fff; text-decoration: none;">
+                                        <!--Prev-->
+                                    </a>
+                                    &nbsp;
+                                    <a href='javascript:void(0);' id="next" class='button' style="background-color: #fff; text-decoration: none;">
+                                        Next
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!------------------------------------------------------------------------------>
+        <!----------------------------Identify modal divs ------------------------------>
+        <div class="medium  reveal" id="exampleModal1" aria-labelledby="exampleModalHeader1" data-reveal data-v-offset="10" style="height: 85%;">
+            <div class="row">
+                <button class="close-button" id="btn_results_contents_close" aria-label="Close Accessible Modal" type="button" data-close>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="row " id="content_header">
+                <div class="columns ">
+                    <h5 id="exampleModalHeader1">Identify Results</h5>
+                </div>
+            </div>
+            <div class="row small-collapse">
+                <div class="columns ">
+                    <div id="idencontent_">
+
+                        <p id="description"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!------------------------------------------------------------------------------>
+        <!----------------------------Metadata modal divs ------------------------------>
+        <div class="reveal-modal full" id="data_link" style="background-color:#ffffff; z-index:999;">
+            <h4 style="color:#093e79;">Data download</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Map layer</th>
+                        <th>Data link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Carbon and peatland 2016 map</td>
+                        <td><a href="https://www.snh.gov.uk/planning-and-development/advice-for-planners-and-developers/soils-and-development/cpp/" target="_blank"><i class="fi-link large"></i> Scottish Natural Heritage</a></td>
+                    </tr>
+                    <tr>
+                        <td>All other map layers</td>
+                        <td><a href="https://www.hutton.ac.uk/research/themes/safeguarding-natural-capital/soilshutton/soils-maps-scotland/download" target="_blank"><i class="fi-link large"></i> James Hutton Institute</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a class="close-reveal-modal">&#215;</a>
+
+        </div>
+
+        <!--------------->
+<div id="myModal" class="reveal-modal" style="color:#444054; z-index:999;">
+            <h4 style="color:#444054;">National soil ap of Scotland</h4>
+            <hr />
+
+            <p>This shows the distribution of the main soil types across the whole of Scotland. It was originally mapped at the 1: 250 000 scale.</p>
+
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3">
+                    <p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/B7E65842-C041-4950-BF0C-3AF06C2DBAE7" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p>
+                </div>
+                <div class="columns small-4 large-3">
+                    <p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p>
+                </div>
+                <div class="columns small-4 large-3">
+                    <p><a href="http://soils.environment.gov.scot/maps/soil-maps/national-soil-map-of-scotland/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p>
+                </div>
+                <div class="columns small-2 large-3">
+
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_NSIS_and_Soils/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+         
+            <a class="close-reveal-modal">&#215;</a>
+
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+
+        </div>
+
+        <!--------------->
+
+        <div id="myModal2" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Soil map of Scotland (partial cover)</h4>
+            <hr />
+            <!--<p id="description2"></p>-->
+            <p>This covers most of Scotland’s cultivated agricultural soils and adjacent uplands.  It was originally mapped at the 1: 25 000 scale and shows more detail than the National soil map of Scotland.</p>
+
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/9b16b1cb-ed65-4864-a360-43fa7f038500" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p style=""><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p><a href="http://soils.environment.gov.scot/maps/soil-maps/soil-map-of-scotland-partial-cover/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_Soils_25K/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+        <div id="myModal3" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style=" color:#444054">World Reference Base soil map</h4>
+            <hr />
+            <!-- <p id="description3"></p>-->
+            <p>World Reference Base soil map uses an international soil classification based on soil characteristics, properties and horizons (layers).</p>
+
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p style=""><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/d0c01078-a583-40d2-aa3e-edd006db335c" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+                <div class="columns small-6 large-3"><p><a href="http://soils.environment.gov.scot/maps/soil-maps/world-reference-base-soil-map/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/GSSOIL_WRB/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+
+        </div>
+        <div id="myModal4" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style="color: #444054">National scale land capability for forestry</h4>
+            <hr />
+            <!-- <p id="description4"></p>-->
+            <p>The national scale land capability for forestry map provides information on how well a piece of land could grow trees based on a number of factors including soil, climate and topography. </p>
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p style=""><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#thematicmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p><a href="http://soils.environment.gov.scot/maps/capability-maps/national-scale-land-capability-for-forestry/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <!-- <div class="columns small-6 large-4"><p style="font-style:italic">There is currently no metadata available for this map layer</p></div> -->
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_LCF_250K_OSGB/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+
+        <div id="myModal5" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">National scale land capability for agriculture</h4>
+            <hr />
+            <p>The national scale land capability for agriculture map provides information on the types of crops that may be grown in different areas dependent on environmental and soil characteristics. </p>
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/24c6df5a-6b04-43f8-839f-0d45cc2802e3" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+                <div class="columns small-2 large-3"><p style=""><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#thematicmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/capability-maps/national-scale-land-capability-for-agriculture/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_LCA250K_UKSO/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+
+        <div id="myModal6" class="reveal-modal large" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Land capability for agriculture (partial cover)</h4>
+            <hr />
+            <p>The land capability map for agriculture (partial cover) provides information at a greater resolution than the national map on the types of crops that may be grown in different areas dependent on the environmental and soil characteristics. </p>
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/cfa70edc-8884-433d-b1f3-3970f5b4b047" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#thematicmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-6 large-3"><p><a href="http://soils.environment.gov.scot/maps/capability-maps/land-capability-for-agriculture-partial-cover/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_LCA_50K_OSGB/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+
+
+        <div id="myModal7" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Map of topsoil organic carbon concentration</h4>
+            <hr />
+            <p>Shows the soil carbon concentration in the surface layer of soil.</p>
+            <!--<p id="description7"></p>-->
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/7e6b7429-dc2f-4626-bd4b-89f464d1fd66" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#thematicmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-6 large-3"><p><a href="http://soils.environment.gov.scot/maps/thematic-maps/map-of-topsoil-organic-carbon-concentration/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/GSSOIL_TOC/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+
+        <div id="myModal8" class="reveal-modal medium-12" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Map of available water capacity</h4>
+            <hr />
+            <p>Available water capacity is the amount water a soil can provide for plants and so is a useful indicator of the ability of soils to grow crops.</p>
+            <!--<p id="description8"></p>-->
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/71e38c05-cf6c-4732-b966-7c202e146cc4" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p style=""><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#thematicmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-6 large-3"><p><a href="http://soils.environment.gov.scot/maps/thematic-maps/map-of-available-water-capacity/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/GSSOIL_AWC/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+
+        </div>
+        <div id="myModal9" class="reveal-modal " style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Map of soil texture in nitrate vulnerable zones</h4>
+            <hr />
+            <p>Soil texture in Nitrate Vulnerable Zones provides information to help understand what management practices can be performed, and when, within Nitrate Vulnerable Zones (NVZs).</p>
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p style=""><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#nsismapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/thematic-maps/map-of-soil-texture-in-nitrate-vulnerable-zones/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_NVZ_Soil_Texture_2016/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+
+
+        <div id="myModal10" class="reveal-modal large" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Carbon and peatland 2016 map</h4>
+            <hr />
+            <!--<p id="description10"></p>-->
+            <p>Shows the distribution of carbon and peatland classes across the whole of Scotland. It gives a value to indicate the likely presence of carbon-rich soils, deep peat and priority peatland habitat for each individually-mapped area, at a coarse scale.</p>
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/51b36efb-3521-4243-9bb0-93f8a7a60a71" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p><a href="https://gateway.snh.gov.uk/natural-spaces/dataset.jsp?dsid=PEAT" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-6 large-3"><p><a href="http://soils.environment.gov.scot/maps/thematic-maps/carbon-and-peatland-2016-map/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://cagmap.snh.gov.uk/arcgis/rest/services/snh_renewables/MapServer/2" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.snh.gov.uk" target="_blank"><img class="thumbnail" src="img/snh_logo.svg" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© SNH available under an Open Government Licence.</p>
+                <p style="font-size:0.9em;">The Carbon and Peatland 2016 map is based on soil and land cover map data produced by the James Hutton Institute. Used with the permission of The James Hutton Institute. All rights reserved.</p>
+            </div>
+        </div>
+
+
+        <div id="myModal11" class="reveal-modal large" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">National Soils Inventory of Scotland (NSIS 1978-88)</h4>
+            <hr />
+            <p>Shows the sampling locations of the National Soil Inventory of Scotland, classified by the soil type found at each location. </p>
+            <!-- <p id="description11"></p>-->
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/b72a313a-9740-4ae6-917f-683b0457486c" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+                <div class="columns small-4 large-3"><p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-6 large-3"><p><a href="http://soils.environment.gov.scot/maps/point-data/national-soil-inventory-of-scotland-nsis-1978-88/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_NSIS/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+
+        </div>
+        <div id="myModal12" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Parent material</h4>
+            <hr />
+            <!--<p id="description12"></p>-->
+            <p>Shows the soil parent material found at each National Soil Inventory of Scotland sampling location.  This is the material that the soil was made from.</p>
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/point-data/parent-material/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_NSIS_ParentMaterial/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+        <div id="myModal13" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Topsoil lead concentration</h4>
+            <hr />
+            <!--<p id="description13"></p>-->
+            <p>Shows the location of each National Soil Inventory of Scotland sampling point.  The colour of the symbol relates to the lead concentration of the topsoil found at that point (in parts per million of air-dried soil). </p>
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/point-data/topsoil-lead-pb-concentration/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_NSIS_Lead/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+
+            </div><a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+        <div id="myModal14" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Topsoil zinc concentration</h4>
+            <hr />
+            <p>Shows the location of each National Soil Inventory of Scotland sampling point. The colour of the symbol relates to the zinc concentration of the topsoil found at that point (in parts per million of air-dried soil). </p>
+
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/point-data/topsoil-zinc-zn-concentration/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+                 <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_NSIS_Zinc/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+                <p style="font-style:italic">There is currently no metadata available for this map layer</p>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+        <div id="myModal15" class="reveal-modal large" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Peatland ACTION - Peat depth</h4>
+            <hr />
+            <!--<p id="description10"></p>-->
+            <p>Scottish Natural Heritage (SNH) has prepared a consolidated spatial dataset of peat depth measurement collected across Scotland. The information was collected during peat depth surveys conducted as part of various assessments carried out on sites that formed part of the Peatland ACTION project (2012-2017).  </p>
+
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-6 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/82e2ad6e-b97e-4f4c-80b7-679e15c55d25" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></p></div>
+
+                <div class="columns small-4 large-3"><p><a href="https://gateway.snh.gov.uk/natural-spaces/dataset.jsp?dsid=PEATACT-DEPTH" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/point-data/peatland-action-peat-depth/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+
+                <div class="columns small-2 large-3">
+                    <p><a href="http://cagmap.snh.gov.uk/arcgis/rest/services/snh_renewables/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.snh.gov.uk" target="_blank"><img class="thumbnail" src="data:image/png;base64,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" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <p style="font-size:0.9em;">© SNH available under an Open Government Licence</p>
+            </div>
+        </div>
+        <!-- Phosporus sorption -->
+        <div id="myModal16" class="reveal-modal" style="color:#093e79; z-index:999;">
+            <h4 style="color:#444054;">Soil phosphorus sorption capacity</h4>
+            <hr /> 
+            <p>This map shows the inherent ability of soil to retain phosphorus (P) - the P sorption capacity (PSC). The classification is based on properties of the soil which relate to the soil association to which it belongs.  </p>
+
+            <!--<p id="description10"></p>-->
+            <div style="padding-left: 1.5em;" class="row">
+                
+                <div class="columns small-2 large-3">
+                    <p><a href="http://soils.environment.gov.scot/maps/thematic-maps/map-of-soil-phosphorus-sorption-capacity/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p>
+                </div>
+                <div class="columns small-2 large-3">
+                    <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_Soil_P_sorption_2018/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                </div>
+            </div>
+
+            <a class="close-reveal-modal">&#215;</a>
+            <div class="small">
+                <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                <a href="https://www.sruc.ac.uk/info/20005/sac_consulting" target="_blank"><img class="thumbnail" style="width:77px; height:87px" src="img/SAC CONSULTING logo colour.jpg"></a>
+                <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+            </div>
+        </div>
+
+            <!-- Subsoil compaction -->
+            <div id="myModal17" class="reveal-modal" style="color:#093e79; z-index:999;">
+                <h4 style="color:#444054;">Subsoil compaction risk</h4>
+                <hr />
+                <!--<p id="description10"></p>-->
+                <p>The map shows the vulnerability of subsoils to compaction by traffic. It covers most of Scotland’s cultivated agricultural land area. The subsoil compaction risk gives information on the likelihood of the subsoil becoming compacted due to heavy machinery in four classes (Extremely vulnerable, Very vulnerable, Moderately vulnerable or Not particularly vulnerable) based on the soil texture and the amount of water left in the soil after any excess has drained away (known as field capacity). </p>
+
+                <div style="padding-left: 1.5em;" class="row">
+                    <div class="columns small-6 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/xml.metadata.get?id=22916973" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></p></div>
+                    <div class="columns small-4 large-3"><p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+
+                    <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/risk-maps/map-of-subsoil-compaction-risk-partial-cover/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+
+                    <div class="columns small-2 large-3">
+                        <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_SubsoilCompaction_Partial/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                    </div>
+                </div>
+
+                <a class="close-reveal-modal">&#215;</a>
+                <div class="small">
+                    <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                    <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+                </div>
+            </div>
+            <div id="myModal18" class="reveal-modal" style="color:#093e79; z-index:999;">
+                <h4 style="color:#444054;">Topsoil compaction risk</h4>
+                <hr />
+                <!--<p id="description10"></p>-->
+                <p>The map shows the risk of the topsoil becoming compacted due to the passage of machinery. This map primarily covers the cultivated land in Scotland and provides information on the risk of topsoil compaction.The topsoil compaction risk gives information of the likelihood of the topsoil becoming compacted in 3 classes: High, Moderate or Low. The risk is based on the natural drainage class of the soil and the soil texture. </p>
+                <div style="padding-left: 1.5em;" class="row">
+                    <div class="columns small-6 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/xml.metadata.get?id=22956284" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+
+                    <div class="columns small-4 large-3"><p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                    <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/risk-maps/map-of-topsoil-compaction-risk-partial-cover/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+
+                    <div class="columns small-2 large-3">
+                        <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_TopsoilCompaction_Partial/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                    </div>
+                </div>
+                <!-- <p style="font-style:italic">There is currently no metadata available for this map layer</p> -->
+                <a class="close-reveal-modal">&#215;</a>
+                <div class="small">
+                    <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                    <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+                </div>
+            </div>
+            <div id="myModal19" class="reveal-modal" style="color:#093e79; z-index:999;">
+                <h4 style="color:#444054;">Soil erosion risk</h4>
+                <hr />
+                <!--<p id="description10"></p>-->
+                <p> The map shows the risk of a bare soil being eroded by water under intense or prolonged rainfall and primarily covers the cultivated land in Scotland. Soils with mineral topsoils have been classified separately from those with organic (peaty) surface layers. The risk of soil erosion is shown in 3 main classes for soils with mineral topsoils; High, Moderate or Low. The risk of erosion is greatest on coarse textured soils with a low water adsorption capacity on steep slopes.  Please note that as this layer has been produced using raster slope data the map has a "blocky" appearance.</p>
+                <div style="padding-left: 1.5em;" class="row">
+                    <div class="columns small-4 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/xml.metadata.get?id=22956286" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></p></div>
+                    <div class="columns small-4 large-3"><p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+
+                    <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/risk-maps/map-of-soil-erosion-risk-partial-cover/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+
+                    <div class="columns small-2 large-3">
+                        <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_SoilErosionRisk_Partial/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                    </div>
+                </div>
+                <a class="close-reveal-modal">&#215;</a>
+                <div class="small">
+                    <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                    <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+                </div>
+            </div>
+            <div id="myModal20" class="reveal-modal" style="color:#093e79; z-index:999;">
+                <h4 style="color:#444054;">Soil leaching potential</h4>
+                <hr />
+                <!--<p id="description10"></p>-->
+                <p>The map shows the risk of potential pollutants and nutrients leaching through the soil to ground and surface waters. This map primarily covers the cultivated land in Scotland. The soil leaching potential gives information on the likelihood of a potential pollutant that is applied to the soil surface infiltrating the soil and leaching to a water course or ground water in three main categories (High, Intermediate and Low) with the High class being subdivided into 3 classes while the intermediate class is subdivided into 2 classes. </p>
+                <div style="padding-left: 1.5em;" class="row">
+                    <div class="columns small-6 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/xml.metadata.get?id=22956305" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></p></div>
+
+                    <div class="columns small-4 large-3"><p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                    <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/risk-maps/map-of-soil-leaching-potential-partial-cover/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+
+                    <div class="columns small-2 large-3">
+                        <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_SoilLeachingPotential_Partial/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                    </div>
+                </div>
+                <a class="close-reveal-modal">&#215;</a>
+                <div class="small">
+                    <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                    <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+                </div>
+            </div>
+            <div id="myModal21" class="reveal-modal" style="color:#093e79; z-index:999;">
+                <h4 style="color:#444054;">Soil runoff risk</h4>
+                <hr />
+                <!--<p id="description10"></p>-->
+                <p>The map shows the risk of water flowing overland (runoff) carrying potential pollutants into water courses. This map primarily covers the cultivated land in Scotland. The digital dataset gives information on the likelihood of a potential pollutant applied to the soil surface running off the land to a water course in 3 classes: High, Moderate or Low and is based on fundamental soil characteristics such as depth to a slowly permeable layer, soil porosity and flow pathways through the soil. </p>
+                <div style="padding-left: 1.5em;" class="row">
+                    <div class="columns small-4 large-3"><p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/xml.metadata.get?id=22956285" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p></div>
+
+                    <div class="columns small-4 large-3"><p><a href="https://www.hutton.ac.uk/learning/natural-resource-datasets/soilshutton/soils-maps-scotland/download#soilmapdata" target="_blank"><span title="Download data"><i style="font-size: 5em;" class="fi-download"></i></span></a></p></div>
+                    <div class="columns small-2 large-3"><p><a href="http://soils.environment.gov.scot/maps/risk-maps/map-of-runoff-risk-partial-cover/" target="_blank"><span title="Map summary"><i style="font-size: 5em;" class="fi-link"></i></span></a></p></div>
+
+                    <div class="columns small-2 large-3">
+                        <p><a href="http://druid.hutton.ac.uk/arcgis/rest/services/Hutton_RunoffRisk_Partial/MapServer/0" target="_blank"><span title="Map service link"><i style="font-size: 5em;" class="fi-map"></i></span></a></p>
+                    </div>
+                </div>
+                <a class="close-reveal-modal">&#215;</a>
+                <div class="small">
+                    <a href="https://www.hutton.ac.uk" target="_blank"><img class="thumbnail" src="https://www.hutton.ac.uk/sites/all/themes/jameshutton/images/logos/jhi.png" style="vertical-align:middle; margin-right: 3%;" /></a>
+                    <p style="font-size:0.9em;">© Copyright James Hutton Institute.</p>
+                </div>
+            </div>
+        <!-------------------------------------------------------------------------------------------->
+        <!-------------------------------------Opacity modal divs ------------------------------------>
+        <div id="opacityModal" class="reveal-modal medium" style="z-index:999;">
+
+            <div id="content_header" class="row">
+                <h5 style="color: #444054">Change map layer transparency</h5>
+
+                <div class="ui-slider" id="ui-slider"></div>
+
+                <a class="close-reveal-modal">&#215;</a>
+            </div>
+        </div>
+
+        <!------------------------------------ callout for identify ----------------------------------->
+        <!--------------------------------------------------------------------------------------------->
+
+        <div id="pWork2" style="display: none; overflow: hidden; ">
+            <div class="popup-content" style="margin-left: 50%; color: #ffffff; width: 250px; padding: 5px; position: absolute; z-index: 999; border-radius: 4px; background-color: #8277ba; border: 0px; ">
+                <button data-position-to="window">The layer is not available at this scale - zoom to view</button>
+            </div>
+        </div>
+
+        <div id="pWork3" style="display: none; ">
+            <div class="popup-content" style="margin-left: 50%; color: #ffffff; width: 275px; padding: 5px; position: absolute; z-index: 999; border-radius: 4px; background-color: #8277ba; border: 0px;">
+                <button data-position-to="window">Map layer has no features to identify</button>
+            </div>
+        </div>
+
+        <div id="pWork4" style="display: none; ">
+            <div class="popup-content" style="margin-left: 50%; color: #ffffff; width: 275px; padding: 3px; position: absolute; z-index: 999; border-radius: 4px; background-color: #8277ba; border: 0px;">
+                <button data-position-to="window">Map layer has no features to identify - zoom out to view</button>
+            </div>
+        </div>
+        <div id="pWork5" style="display: none; ">
+            <div class="popup-content" style="margin-left: 50%; color: #ffffff; width: 275px; padding: 3px; position: absolute; z-index: 999; border-radius: 4px; background-color: #8277ba; border: 0px;">
+                <button data-position-to="window">Map layer is temporarily unavailable at this time.</button>
+            </div>
+        </div>
+        
+        <div id="basemapModal" style="display: none; list-style-type: none; ">
+
+            <div class="popup-content2">
+
+                <div> <button class="close" style="font-size:18px;" onclick="document.getElementById('basemapModal').style.display = 'none'">x</button></div>
+                
+               
+                <div style="padding-top: 1em; padding-bottom: 1em;"class="row">
+                    <div class="medium-12 columns">
+                        <a id="bg_standardMap" href="#">
+                            Standard
+                        </a>
+                    </div>
+                    <div class="medium-12 columns">
+                        <a id="bg_ColourMap" href="#">
+                            Colour
+                        </a>
+                    </div>
+                    <div class="medium-12 columns">
+                        <a id="bg_greyscaleMap" href="#">
+                            Greyscale
+                        </a>
+                    </div>
+                    <div style="pointer-events: none; color: #808080;" class="medium-12 columns">
+                        <a>
+                            Aerial photography (zoom to view)
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+
+        <!--<div id="myModal" class="reveal-modal" style="color:#444054; z-index:999;">
+            <h4 style="color:#444054;">National soil map of Scotland</h4>
+            <hr />
+
+            <p>This shows the distribution of the main soil types across the whole of Scotland. It was originally mapped at the 1: 250 000 scale.</p>
+
+            <div style="padding-left: 1.5em;" class="row">
+                <div class="columns small-2 large-4">
+                    <p><a href="https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/B7E65842-C041-4950-BF0C-3AF06C2DBAE7" target="_blank"><span title="View metadata"><i style="font-size: 5em;" class="fi-layout"></i></span></a></p>
+                </div>
+
+            </div>
+
+            <a class="close-reveal-modal">&#215;</a>
+
+
+        </div>-->
+
+        <div id="basemapModal2" style="display: none;  list-style-type: none;">
+            <div class="popup-content2">
+                <button class="close" onclick="document.getElementById('basemapModal2').style.display = 'none'"><i class="fa fa-close"></i></button>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <a id="bg_standardMap2" href="#">
+                            Standard
+                        </a>
+                    </div>
+                    <div class="medium-12 columns">
+                        <a id="bg_ColourMap2" href="#">
+                            Colour
+                        </a>
+                    </div>
+                    <div class="medium-12 columns">
+                        <a id="bg_greyscaleMap2" href="#">
+                            Greyscale
+                        </a>
+                    </div>
+                    <div class="medium-12 columns">
+                        <a id="bg_aerialMap">
+                            Aerial photography
+                        </a>
+                    </div>
+                </div>
+            </div>
+			
+        </div>
+
+        <!--------------------------------------------------------------------------------------------->
+        <!--------------------------------ToC---------------------------------------------------------->
+
+        <div class="off-canvas-wrap" data-off-canvas>
+
+            <div class="columns  small-10 medium-8 large-4 columns column_sepa" id="toc_sepa" aria-expanded="true" data-toggler data-animate="slide-in-left" data-closable="slide-out-left" style="background-color:#ffffff; z-index:55;">
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                    <span aria-expanded="true"><i class="fi-arrow-left"></i></span>
+                </button>
+                <div class="row">
+
+                    <div class="columns">
+                        <h3 style="padding-top:10px; color: #27233e">Map contents</h3>
+                    </div>
+                </div>
+                <div class="column row">
+
+                    <ul class="tabs" data-tabs id="example-tabs" style="margin-top: 0%;">
+                        <li class="tabs-title is-active"><a href="#panel3" aria-selected="true" style="color: #27233e; font-size:0.8em; ">Maps</a></li>
+                        <li class="tabs-title"><a href="#panel4" style="color: #27233e; font-size:0.8em;">Legend</a></li>
+
+                    </ul>
+
+
+                    <div class="tabs-content" data-tabs-content="example-tabs">
+                        <div class="tabs-panel is-active" id="panel3" style="padding-left:0.5rem; padding-bottom: 6.0rem;">
+
+
+
+                            <div style="padding-left:inherit;" id="buttonMaps">
+
+                                <div class="jellybean">
+                                    <a id="jellybean1" href="#">Soil maps</a>
+                                </div>
+
+                                <div class="jelly">
+                                    <div id="soil_1" style="display:inline-block; width:100%; border-bottom:solid 0px #337ab7;">
+                                        <div class="label_controls" id="label_controls1">
+
+                                            <div class="switch tiny" id="tooltip1" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch1" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch1">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+
+                                            </div>
+                                            <div>
+                                                <a href=" #" data-reveal-id="myModal" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                    <i id="tooltip6" title="Get info and metadata" class="fi-info style1 " style="color:#444054; margin-left: 0.15em; padding-top: 0px;"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div id="title_1" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">National soil map of Scotland</div>
+                                    </div>
+                                    <div id="soil_2" style="display:inline-block; width:100%; border-bottom:solid 0px #337ab7;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+
+                                            <div class="switch tiny" id="tooltip5" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch2" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch2">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal2" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px;font-size:1.8em;">
+                                                <i id="tooltip7" title="Get info and metadata" class="fi-info style1 " style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+
+                                        <div id="title_2" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Soil map of Scotland (partial cover)</div>
+                                    </div>
+                                    <div id="soil_3" style="display:inline-block; width:100%; border-bottom:solid 0px #337ab7;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+
+                                            <div class="switch tiny" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch3" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch3">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal3" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip9" title="Get info and metadata" class="fi-info style1 " style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+                                        </div>
+
+                                        <div id="title_3" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">World Reference Base soil map</div>
+                                    </div>
+                                </div>
+
+                                <hr style="color: #808080" />
+
+
+                                <div class="jellybean">
+                                    <a id="jellybean2" href="#">Capability maps</a>
+                                </div>
+                                <div class="jelly">
+                                    <div id="cap_1" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px; ">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip11" title="View map layer" style="float:right;padding-top:0px;padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch4" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch4">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+
+                                            <a href="#" data-reveal-id="myModal4" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip12" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_4" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">National scale land capability for forestry</div>
+                                    </div>
+                                    <div id="cap_2" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px; ">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip14" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch5" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch5">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal5" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip15" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_5" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">National scale land capability for agriculture</div>
+
+
+                                    </div>
+                                    <div id="cap_3" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip17" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch6" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch6">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal6" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_6" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Land capability for agriculture (partial cover)</div>
+                                    </div>
+                                </div>
+                                <hr style="color: #808080" />
+
+                                <div class="jellybean">
+                                    <a id="jellybean3" href="#">Thematic maps</a>
+                                </div>
+                                <div class="jelly">
+                                    <div id="thematic_1" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch7" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch7">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal7" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_7" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Map of topsoil organic carbon concentration</div>
+
+
+                                    </div>
+                                    <div id="thematic_2" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch8" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch8">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal8" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_8" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Map of available water capacity</div>
+
+
+                                    </div>
+
+                                    <div id="thematic_3" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch9" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch9">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal9" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_9" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Map of soil texture in nitrate vulnerable zones</div>
+
+
+                                    </div>
+                                    <div id="thematic_4" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch10" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch10">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal10" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_10" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Carbon and peatland 2016 map</div>
+
+
+                                    </div>
+                                    <div id="thematic_5" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip13" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch16" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch16">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal16" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_16" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Soil phosphorus sorption capacity</div>
+
+
+                                    </div>
+
+                                </div>
+                                <hr style="color: #808080" />
+
+                                <div class="jellybean">
+                                    <a id="jellybean4" href="#">Point data</a>
+                                </div>
+                                <div class="jelly">
+                                    <div id="point_1" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch11" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch11">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+
+                                            <a href="#" data-reveal-id="myModal11" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_11" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">National Soils Inventory of Scotland (NSIS 1978-88)</div>
+
+
+                                    </div>
+                                    <div id="point_2" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch12" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch12">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal12" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_12" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Parent material</div>
+
+
+                                    </div>
+
+                                    <div id="point_3" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch13" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch13">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+                                            <a href="#" data-reveal-id="myModal13" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_13" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Topsoil lead concentration</div>
+
+
+                                    </div>
+                                    <div id="point_4" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch14" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch14">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+                                            <a href="#" data-reveal-id="myModal14" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_14" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Topsoil zinc concentration</div>
+                                    </div>
+                                    <div id="point_5" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch15" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch15">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+                                            <a href="#" data-reveal-id="myModal15" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_15" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Peatland ACTION - Peat depth</div>
+
+
+                                    </div>
+                                </div>
+
+
+                                <hr style="color: #808080" />
+
+                                <div class="jellybean">
+                                    <a id="jellybean5" href="#">Risk maps</a>
+
+                                </div>
+                                <div class="jelly">
+
+
+                                    <div id="risk_1" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch17" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch17">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+
+                                            <a href="#" data-reveal-id="myModal17" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_17" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Subsoil compaction risk</div>
+
+
+                                    </div>
+                                    <div id="risk_2" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch18" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch18">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+
+                                            <a href="#" data-reveal-id="myModal18" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_18" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Topsoil compaction risk</div>
+
+
+                                    </div>
+                                    <div id="risk_3" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch19" type="radio" name="exampleSwitch">
+                                                <label id="paddleNineteen" class="switch-paddle" for="switch19">
+                                                    <span  class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+
+                                            <a href="#" data-reveal-id="myModal19" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_19" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Soil erosion risk</div>
+
+
+                                    </div>
+                                    <div id="risk_4" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch20" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch20">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+
+                                            <a href="#" data-reveal-id="myModal20" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_20" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Soil leaching potential</div>
+
+
+                                    </div>
+                                    <div id="risk_5" style="display:inline-block; width:100%; border-bottom:solid 0px #8ad664;padding-top:6px;">
+                                        <div class="label_controls" id="label_controls1">
+                                            <div class="switch tiny" id="tooltip4" title="View map layer" style="float:right;padding-top:0px; padding-left: 0.5em;">
+
+                                                <input class="switch-input" id="switch21" type="radio" name="exampleSwitch">
+                                                <label class="switch-paddle" for="switch21">
+                                                    <span class="switch-active" value="on" aria-hidden="true"></span>
+                                                    <span class="switch-inactive" aria-hidden="true"></span>
+                                                </label>
+                                            </div>
+
+
+                                            <a href="#" data-reveal-id="myModal21" data-animation="fade" style="float:right; padding-right: 0.1em; padding-left: 0.1em; margin-top:-8px; font-size:1.8em;">
+                                                <i id="tooltip2" title="Get info and metadata" class="fi-info style1" style="color:#444054; margin-left: 0.15em;"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="title_21" style="width:60%;float:left;vertical-align:middle;font-size:1.0em;">Soil runoff risk</div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!------------------------------------------------------------------------------->
+                        <!----------------------------Panel4 contents------------------------------------>
+                        <div class="tabs-panel" id="panel4" style="overflow-y:scroll; overflow-y:hidden; padding-bottom: 6.0rem;">
+                            <div id="legendDiv"></div>
+
+                            <div id="mapContent">
+                                <!--<a href="https://soils.environment.gov.scot/maps/" target="_blank" style="background-color: rgba(4,66,105,1)" class="button">Go to about maps</a>-->
+                                <a href="https://google.com" id="urlButton" target="_blank" style="background-color: #a09abc; color: #ffffff; border-radius: 6px;" class="button">Go to about maps</a>
+                            </div>
+                            <div id="soilTypes" style="display:none">
+                                <a href="https://soils.environment.gov.scot/resources/guide-to-soil-types/" target="_blank" style="background-color: #a09abc; color: #ffffff;" class="button">Guide to soil types</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!--------------------------------------------------------------->
+            <!--------------------Copyright and map footer----------------------->
+
+            <div class="row row_sepa " data-equalizer="foo" style="border:solid 0px #8ad664;">
+                <div class="columns column_sepa" style="border:solid 0px #4cff00;">
+                    <div class="panel " id="mapcontainer" data-equalizer-watch="foo">
+                        <div id="mapDiv" style="height:50%" class="column small-collapse column_fullheight map small-12 medium-12 large-12">
+                           <i id="loadingImg" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="color: #444054; position:absolute;right:512px; top:456px;z-index:100;"></i>
+                            
+                            <!--<div id="LocateButton"></div>-->
+                            <a href="#" class="ui-settings-button" style="top: 350px; width: 40px; height: 250px;z-index: 997;" aria-controls="toc_sepa" data-toggle="toc_sepa"><i class="fi-arrow-right" style="color:#ffffff; line-height:14em;"></i></a>
+                            <div class="map_buttons" style="color: #ffffff">
+                                <button title="View the map contents" type="button" class="ui-button ui-contents-button button" data-toggle="toc_sepa" style="color: #ffffff; position:absolute; right: 1rem; top: 0rem; border: none">
+                                    <i class="fi-list-thumbnails " style="font-size: 1.2em"></i><span>Map contents</span>
+                                </button>
+                                <a title="Change the basemap" id="launch" a href="#" type="button" class="ui-button ui-basemaps-button button" style="color: #ffffff; position:absolute; top: 2.5rem; border: none">
+                                    <i class="fi-map" style="font-size: 1.2em"></i><span>Basemaps</span>
+                                </a>
+
+                                <button title="Full Scotland view" type="button" class="ui-button ui-home-button button" style="color: #ffffff;position:absolute; top: 7.5rem; border: none">
+                                    <i class="fi-home" style="font-size: 1.2em"></i><span>Zoom to Scotland</span>
+                                </button>
+
+                                <a title="Change the map transparency" a href="#" data-reveal-id="opacityModal" type="button" class="ui-button ui-opacity-button button" style="color: #ffffff;position:absolute; top: 5rem; border: none">
+                                    <i class="fi-contrast" style="font-size: 1.2em"></i><span>Transparency</span>
+                                </a>
+
+                                <button title="Map how to..." type="button" class="ui-button ui-help-button button" data-toggle="about_sepa" style="color: #ffffff;position:absolute; top: 10rem; border: none">
+                                    <i class="fi-info" style="font-size: 1.2em"></i><span>Help</span>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="footer" style="color: #fff; font-size: 0.7em; background-color:#2e2e2e ; bottom: 0; height: 80px; padding-left: 1em; padding-top: 0.5em;position: absolute; width: 100%; z-index: 999; display: block; margin-top: 1em;">
+            ©Crown Copyright. Scottish Government Licence Number 100020540. All Rights Reserved.
+            <div style="max-width: 100%;" class="row">
+                <div class="medium-4 columns" style="padding-top: 0.7rem;">
+                    <a href="https://twitter.com/ScotEnvironment" style="margin-left: 0em; " target="_blank"><i class="fa fa-twitter-square" style="font-size: 3.0em" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com/pages/Scotlands-Environment-Web/504094719673549" style="margin-left: 2em;" target="_blank"><i class="fa fa-facebook-square " style="font-size: 3.0em" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/scotlandsenvironment/" style="margin-left: 2em;" target="_blank"><i class="fa fa-instagram " style="font-size: 3.0em" aria-hidden="true"></i></a>
+                    <a href="https://www.youtube.com/channel/UCiZ305I-CzNGXAswk9rnamA" style="margin-left: 2em;" target="_blank"><i class="fa fa-youtube-square " style="font-size: 3.0em" aria-hidden="true"></i></a>
+                    <a href="https://www.environment.scotland.gov.uk/rss" style="margin-left: 2em;" target="_blank"> <i class="fa fa-rss-square " style="font-size: 3.0em" aria-hidden="true"></i></a>
+
+                </div>
+
+
+                <div class="medium-8 columns" style="padding-top: 1rem; padding-left: 3.5rem;">
+                    <a style="font-size:1.1em; font-weight: bold; margin-left: 0em; color: #ffffff" href="https://soils.environment.gov.scot/about-us/" target="_blank">About us</a>
+                    <a style="font-size:1.1em; font-weight: bold; margin-left: 1em; color: #ffffff" href="https://soils.environment.gov.scot/about-us/glossary/" target="_blank">Glossary</a>
+                    <a style="font-size:1.1em; font-weight: bold; margin-left: 1em; color: #ffffff" href="https://soils.environment.gov.scot/about-us/terms-and-conditions/" target="_blank">Terms & Conditions</a>
+                    <a style="font-size:1.1em; font-weight: bold; margin-left: 1em; color: #ffffff" href="https://soils.environment.gov.scot/about-us/cookies-policy/" target="_blank">Privacy policy and cookies</a>
+                    <a style="font-size:1.1em; font-weight: bold; margin-left: 1em; color: #ffffff" href="https://soils.environment.gov.scot/about-us/sitemap/" target="_blank">Sitemap</a>
+                    <a style="font-size:1.1em; font-weight: bold; margin-left: 1em; color: #ffffff" href="https://soils.environment.gov.scot/about-us/contact-us/" target="_blank">Contact us</a>
+
+                </div>
+            </div>
+
+
+        </div>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-26601593-9', 'auto');
+            ga('send', 'pageview');
+        </script>
+
+        <!-- Track document clicks -->
+        <script>
+            $("a[href$='pdf']").each(function (index) {
+                eventName = $(this).attr('href');
+                eventClick = "ga('send','event','PDF','Download','" + eventName + "');";
+                $(this).attr("onClick", eventClick);
+            });
+        </script>
+        <script>
+            $("a[href$='docx']").each(function (index) {
+                eventName = $(this).attr('href');
+                eventClick = "ga('send','event','docx','Download','" + eventName + "');";
+                $(this).attr("onClick", eventClick);
+            });
+        </script>
+
+
+        <script src="js/vendor/jquery.js"></script>
+
+        <!--<script src="js/foundation/foundation.js"></script>-->
+
+        <script src="js/jqueryxml2json.js"></script>
+        <script src="js/vendor/what-input.js"></script>
+        <script src="js/vendor/foundation.js"></script>
+        <script src="js/vendor/mtree.js"></script>
+        <script src="js/foundation/foundation.topbar.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/0.2.1/jquery.velocity.min.js"></script>
+        <script src="https://js.arcgis.com/3.17compact/"></script>
+
+        <script type="text/javascript" src="js/basemaps.js"></script>
+        <script src="js/search.js"></script>
+
+        <script type="text/javascript" src="js/accordion.js"></script>
+        <script type="text/javascript" src="js/identify.js"></script>
+        <script type="text/javascript" src="js/changeUrl.js"></script>
+        <script src="js/ResulttoTable.js"></script>
+        <script type="text/javascript" src="js/Soils.js"></script>
+
+
+</body>
+
+</html>
